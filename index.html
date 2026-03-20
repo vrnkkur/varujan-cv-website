@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varujan Cam</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1565C0;
+    --blue-light: #E3F0FF;
+    --blue-mid: #1976D2;
+    --dark: #0D1B2A;
+    --gray: #556070;
+    --white: #FFFFFF;
+    --offwhite: #F7F9FC;
+    --accent: #FFB300;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--offwhite);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px;
+    height: 60px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+  }
+  .nav-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: white;
+    letter-spacing: 0.5px;
+  }
+  .nav-links { display: flex; gap: 6px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: rgba(255,255,255,0.2);
+    color: white;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    display: block;
+    min-height: 60vh;
+    padding: 80px 0 60px;
+    border-bottom: 2px solid var(--blue-light);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  /* ── HERO (Over mij) ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 50px;
+    align-items: start;
+    margin-bottom: 50px;
+  }
+  .hero-photo {
+    width: 180px; height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(21,101,192,0.25);
+    border: 4px solid var(--blue);
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--blue);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--gray);
+    font-weight: 300;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 20px;
+  }
+  .tag {
+    background: var(--blue-light);
+    color: var(--blue);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .tag.accent {
+    background: var(--accent);
+    color: var(--dark);
+  }
+
+  /* ── CONTACT GRID ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 10px;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.88rem;
+    color: var(--gray);
+  }
+  .contact-item .icon {
+    width: 32px; height: 32px;
+    background: var(--blue-light);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  /* ── PROFIEL TEXT ── */
+  .profiel-text {
+    background: white;
+    border-left: 4px solid var(--blue);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--gray);
+    margin-top: 30px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .section-line {
+    width: 60px; height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-bottom: 40px;
+  }
+
+  /* ── TIMELINE (werkervaring) ── */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue), var(--blue-light));
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 36px;
+    background: white;
+    border-radius: 12px;
+    padding: 22px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .timeline-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 6px 24px rgba(21,101,192,0.12);
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -26px; top: 24px;
+    width: 14px; height: 14px;
+    background: var(--blue);
+    border-radius: 50%;
+    border: 3px solid var(--offwhite);
+  }
+  .job-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--dark);
+    margin-bottom: 2px;
+  }
+  .job-meta {
+    font-size: 0.82rem;
+    color: var(--blue);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .job-tasks {
+    list-style: none;
+    padding: 0;
+  }
+  .job-tasks li {
+    font-size: 0.88rem;
+    color: var(--gray);
+    padding: 3px 0 3px 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .job-tasks li::before {
+    content: '–';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── OPLEIDING CARDS ── */
+  .edu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .edu-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-top: 4px solid var(--blue);
+    transition: transform 0.2s;
+  }
+  .edu-card:hover { transform: translateY(-4px); }
+  .edu-badge {
+    display: inline-block;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
+  }
+  .edu-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .edu-school {
+    font-size: 0.85rem;
+    color: var(--gray);
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+  .skill-block {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .skill-block h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--blue);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--blue-light);
+  }
+  .kwaliteit {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--offwhite);
+    font-size: 0.9rem;
+    color: var(--dark);
+    font-weight: 500;
+  }
+  .kwaliteit:last-child { border-bottom: none; }
+  .kwaliteit-icon {
+    width: 28px; height: 28px;
+    background: var(--blue);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    color: white;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* TALEN BARS */
+  .lang-item { margin-bottom: 14px; }
+  .lang-header {
+    display: flex; justify-content: space-between;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 5px;
+  }
+  .lang-level {
+    font-size: 0.78rem;
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .lang-bar {
+    height: 6px;
+    background: var(--blue-light);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .lang-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--blue-mid));
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+
+  /* INFORMATICA */
+  .info-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--dark);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 4px;
+  }
+
+  /* RIJBEWIJS */
+  .rijbewijs-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue-light);
+    color: var(--blue);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Varujan Cam</span>
+  <div class="nav-links">
+    <a href="#over-mij">Over mij</a>
+    <a href="#werkervaring">Werkervaring</a>
+    <a href="#opleiding">Opleiding</a>
+    <a href="#kwaliteiten">Kwaliteiten</a>
+  </div>
+</nav>
+
+<!-- ══════════════ OVER MIJ ══════════════ -->
+<section id="over-mij">
+  <div class="container">
+    <div class="hero">
+      <div>
+        <img src="data:image/png;base64,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" alt="Varujan Cam" class="hero-photo">
+      </div>
+      <div>
+        <h1 class="hero-title">Varujan Cam</h1>
+        <p class="hero-subtitle">Luchthavenmedewerker Airport Crew · Brussels Airport</p>
+        <div class="hero-tags">
+          <span class="tag">Gemotiveerd</span>
+          <span class="tag">Punctueel</span>
+          <span class="tag">Serieus</span>
+          <span class="tag accent">Onmiddellijk beschikbaar</span>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-item"><div class="icon">📍</div>Zetselstraat 5, Kapelle-op-den-Bos</div>
+          <div class="contact-item"><div class="icon">📞</div>+32 484 94 60 59</div>
+          <div class="contact-item"><div class="icon">✉️</div>varujancam40@gmail.com</div>
+          <div class="contact-item"><div class="icon">🎂</div>31 juli 2007</div>
+          <div class="contact-item"><div class="icon">💍</div>Ongehuwd</div>
+          <div class="contact-item"><div class="icon">🚗</div>Theoretisch rijbewijs B</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profiel-text">
+      Ik ben een enthousiaste en flexibele jongere van 18 jaar. Ik heb ruime ervaring in klantencontact en werk vlot samen in een team. Ik ben punctueel, serieus en gemotiveerd, en ik werk graag in een dynamische omgeving zoals een luchthaven. Als meertalige kandidaat — Frans (C1), Nederlands (B2), Engels (B1) en Turks (moedertaal) — kan ik reizigers uit verschillende landen professioneel helpen. Ik ben onmiddellijk beschikbaar voor een voltijdse betrekking.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WERKERVARING ══════════════ -->
+<section id="werkervaring">
+  <div class="container">
+    <h2 class="section-title">Werkervaring</h2>
+    <div class="section-line"></div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-title">Toezichter</div>
+        <div class="job-meta">KV Mechelen – Malines &nbsp;|&nbsp; 08/2025 – heden</div>
+        <ul class="job-tasks">
+          <li>Bezoekers vriendelijk en professioneel ontvangen en begeleiden</li>
+          <li>Communiceren met collega's en leidinggevenden</li>
+          <li>Klachten professioneel afhandelen</li>
+          <li>Kalm blijven onder hoge werkdruk</li>
+          <li>Beheer van de inzamelpunten</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-title">Winkelmedewerker</div>
+        <div class="job-meta">Galerie Inno – Rue Neuve, Brussel &nbsp;|&nbsp; 08/2025</div>
+        <ul class="job-tasks">
+          <li>Rekken bevoorraden en artikelen plooien</li>
+          <li>Vragen van klanten beantwoorden</li>
+          <li>Werkplek proper houden</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-title">Magazijnmedewerker</div>
+        <div class="job-meta">Distrilog – Willebroek &nbsp;|&nbsp; 02/2025 – 06/2025</div>
+        <ul class="job-tasks">
+          <li>Bestellingen klaarmaken in de koelruimte</li>
+          <li>Werkruimte proper houden</li>
+          <li>Bakken opstapelen</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-title">Magazijnmedewerker</div>
+        <div class="job-meta">Nektari vzw – Puurs-Sint-Amands &nbsp;|&nbsp; 08/2024</div>
+        <ul class="job-tasks">
+          <li>Zelfstandig werken met goede beheersing van het Nederlands en Frans</li>
+          <li>Vrachtwagens laden en lossen</li>
+          <li>Zorgen voor een propere en veilige werkomgeving</li>
+          <li>Goederen verplaatsen met de heftruck</li>
+          <li>Dozen en paletten sorteren en opnieuw inpakken</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-title">Winkelmedewerker</div>
+        <div class="job-meta">Domino's Pizza – Zaventem &nbsp;|&nbsp; 07/2024</div>
+        <ul class="job-tasks">
+          <li>Winkel proper en verzorgd houden voor optimale klantbeleving</li>
+          <li>Leveringen met de fiets uitvoeren</li>
+          <li>Pizza's bereiden en inpakken</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-title">Medewerker rusthuis</div>
+        <div class="job-meta">Huis Paaleyck – Kapelle-op-den-Bos &nbsp;|&nbsp; 05/2023</div>
+        <ul class="job-tasks">
+          <li>Werkruimtes schoonmaken</li>
+          <li>Ontbijt uitdelen en tafels afruimen</li>
+          <li>Bewoners begeleiden naar hun kamer</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ OPLEIDING ══════════════ -->
+<section id="opleiding">
+  <div class="container">
+    <h2 class="section-title">Opleiding</h2>
+    <div class="section-line"></div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <span class="edu-badge">BEZIG</span>
+        <div class="edu-name">Biotechnologische en Chemische STEM-Wetenschappen</div>
+        <div class="edu-school">Secundair onderwijs · IKOBOS, Kapelle-op-den-Bos</div>
+      </div>
+      <div class="edu-card">
+        <span class="edu-badge" style="background:#E8F5E9;color:#2E7D32;">BEHAALD</span>
+        <div class="edu-name">Lager onderwijs</div>
+        <div class="edu-school">De Pepel, Kapelle-op-den-Bos · Getuigschrift basisonderwijs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ KWALITEITEN ══════════════ -->
+<section id="kwaliteiten">
+  <div class="container">
+    <h2 class="section-title">Kwaliteiten & Vaardigheden</h2>
+    <div class="section-line"></div>
+    <div class="skills-grid">
+
+      <div class="skill-block">
+        <h3>Kwaliteiten</h3>
+        <div class="kwaliteit"><div class="kwaliteit-icon">✓</div>Gemotiveerd</div>
+        <div class="kwaliteit"><div class="kwaliteit-icon">✓</div>Punctueel</div>
+        <div class="kwaliteit"><div class="kwaliteit-icon">✓</div>Serieus</div>
+      </div>
+
+      <div class="skill-block">
+        <h3>Talen</h3>
+        <div class="lang-item">
+          <div class="lang-header"><span>Turks</span><span class="lang-level">Moedertaal</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-header"><span>Frans</span><span class="lang-level">C1</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:88%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-header"><span>Nederlands</span><span class="lang-level">B2</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:70%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-header"><span>Engels</span><span class="lang-level">B1</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:50%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <h3>Informatica</h3>
+        <span class="info-chip">🐍 Python</span>
+      </div>
+
+      <div class="skill-block">
+        <h3>Rijbewijs</h3>
+        <div class="rijbewijs-badge">🚗 Theoretisch rijbewijs B</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function showSection(id, el) {
+  document.querySelectorAll('section').forEach(s => s.classList.rem
